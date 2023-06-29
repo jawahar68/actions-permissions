@@ -107,15 +107,9 @@ elif [ "$RUNNER_OS" = "Linux" ]; then
   # install mitmproxy certificate as CA
   sudo mkdir /usr/local/share/ca-certificates/extra
   sudo openssl x509 -in /home/mitmproxyuser/.mitmproxy/mitmproxy-ca-cert.pem -inform PEM -out ~/mitmproxy-ca-cert.crt
-  sudo cp ~/mitmproxy-ca-cert.crt /usr/local/share/ca-certificates/extra/mitmproxy-ca-cert.crt
+  sudo cat ~/mitmproxy-ca-cert.crt >> /etc/ssl/certs/ca-certificates.crt
   sudo dpkg-reconfigure -p critical ca-certificates
   sudo update-ca-certificates
-  # set environment variable for NodeJS to use the certificate
-  echo "NODE_EXTRA_CA_CERTS=/home/mitmproxyuser/.mitmproxy/mitmproxy-ca-cert.pem" >> $GITHUB_ENV
-  # set environment variable for the Python requests library to use the certificate
-  echo "REQUESTS_CA_BUNDLE=/home/mitmproxyuser/.mitmproxy/mitmproxy-ca-cert.pem" >> $GITHUB_ENV
-  # set environment variable for the Elixir Hex package manager to use the certificate
-  echo "HEX_CACERTS_PATH=/home/mitmproxyuser/.mitmproxy/mitmproxy-ca-cert.pem" >> $GITHUB_ENV
 
   # setup global redirection
   sudo sysctl -w net.ipv4.ip_forward=1
