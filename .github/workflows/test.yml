@@ -26,9 +26,11 @@ jobs:
       - uses: GitHubSecurityLab/actions-permissions/monitor@experiments
       
       - uses: actions/checkout@v3
+        if: always()
       
       # Docker build or pull needs CA fixup?
-      - run: |
+      - if: always()
+        run: |
           cat <<EOF > Dockerfile
           FROM node:18.16-bookworm-slim AS npm-builder
 
@@ -43,14 +45,17 @@ jobs:
           EOF
           docker build --rm --tag elixir_boilerplate:latest .
           
-      - run: |
+      - if: always()
+        run: |
           docker pull hello-world
           docker run hello-world
       
-      - run: docker pull quay.io/jetstack/cert-manager-controller:v1.8.2
+      - if: always()
+        run: docker pull quay.io/jetstack/cert-manager-controller:v1.8.2
       
       # test github-script CA
-      - name: github-script
+      - if: always()
+        name: github-script
         uses: actions/github-script@v6
         with:
           script: |
@@ -61,7 +66,8 @@ jobs:
             });
             
       # test gh CA
-      - name: gh api
+      - if: always()
+        name: gh api
         env:
             GH_TOKEN: ${{ github.token }}
         run: |
@@ -70,7 +76,8 @@ jobs:
             /repos/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/issues/1/labels
 
       # test curl CA
-      - name: curl
+      - if: always()
+        name: curl
         run: |
           curl \
             -H "Accept: application/vnd.github+json" \
