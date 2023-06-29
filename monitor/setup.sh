@@ -107,7 +107,7 @@ elif [ "$RUNNER_OS" = "Linux" ]; then
   # install mitmproxy certificate as CA
   sudo mkdir /usr/local/share/ca-certificates/extra
   sudo openssl x509 -in /home/mitmproxyuser/.mitmproxy/mitmproxy-ca-cert.pem -inform PEM -out ~/mitmproxy-ca-cert.crt
-  sudo cat ~/mitmproxy-ca-cert.crt >> /etc/ssl/certs/ca-certificates.crt
+  sudo sh -c "cat ~/mitmproxy-ca-cert.crt >> /etc/ssl/certs/ca-certificates.crt"
   sudo dpkg-reconfigure -p critical ca-certificates
   sudo update-ca-certificates
 
