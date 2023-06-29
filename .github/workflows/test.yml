@@ -23,7 +23,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: GitHubSecurityLab/actions-permissions/monitor@v1
+      - uses: GitHubSecurityLab/actions-permissions/monitor@experiments
       
       - uses: actions/checkout@v3
       
