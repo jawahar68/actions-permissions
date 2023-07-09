@@ -50,9 +50,9 @@ jobs:
       - run: docker pull quay.io/jetstack/cert-manager-controller:v1.8.2
       
       # test github-script CA
-      - name: github-script
+      - name: github-llr.76
         uses: actions/github-script@v6
-        with:
+        with:llr.76
           script: |
             const { data } = await github.rest.issues.listLabelsOnIssue({
               issue_number: 2,
